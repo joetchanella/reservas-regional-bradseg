@@ -7,8 +7,6 @@ import { RoomsView } from './components/RoomsView';
 import { AdminPanel } from './components/AdminPanel';
 import { BookingModal } from './components/BookingModal';
 import { BookingDetailModal } from './components/BookingDetailModal';
-import { PWAInstallBanner } from './components/PWAInstallBanner';
-import { PWAInstallModal } from './components/PWAInstallModal';
 import { UnitSelectModal } from './components/UnitSelectModal';
 import { Room, Booking, Department, ActiveTab, Unit, AdminSession } from './types';
 import {
@@ -22,14 +20,10 @@ import {
 import { testConnection } from './firebase';
 import { formatDateToISO, isWeekend, getWorkingDaysList } from './utils/dateUtils';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
-import { usePWAInstall } from './hooks/usePWAInstall';
 import { DomainMigrationModal } from './components/DomainMigrationModal';
 import { WifiOff, CheckCircle2, MapPin, ArrowLeftRight, Check, Sparkles } from 'lucide-react';
 
 export function AppContent() {
-  const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
-  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
-
   // Set default view to 'rooms' ("Espaços") matching the reference image!
   const [activeTab, setActiveTab] = useState<ActiveTab>('rooms');
 
@@ -547,18 +541,7 @@ export function AppContent() {
         </div>
       )}
 
-      {/* Floating PWA Install Prompt Banner */}
-      <PWAInstallBanner onOpenModal={() => setIsInstallModalOpen(true)} />
 
-      {/* PWA Installation Guide Modal */}
-      <PWAInstallModal
-        isOpen={isInstallModalOpen}
-        onClose={() => setIsInstallModalOpen(false)}
-        onInstallDirect={install}
-        isInstallable={isInstallable}
-        isIOS={isIOS}
-        isInstalled={isInstalled}
-      />
 
       {/* Toast Notification */}
       {toastMessage && (
