@@ -23,6 +23,7 @@ import { testConnection } from './firebase';
 import { formatDateToISO, isWeekend, getWorkingDaysList } from './utils/dateUtils';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { usePWAInstall } from './hooks/usePWAInstall';
+import { DomainMigrationModal } from './components/DomainMigrationModal';
 import { WifiOff, CheckCircle2, MapPin, ArrowLeftRight, Check, Sparkles } from 'lucide-react';
 
 export function AppContent() {
@@ -348,6 +349,9 @@ export function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col transition-colors duration-300">
+      {/* Domain Migration Modal & Persistent Banner when on old URL */}
+      <DomainMigrationModal />
+
       {/* Offline Toast */}
       {!isOnline && (
         <div className="sticky top-0 z-50 bg-[#E60026] text-white text-xs font-bold py-2 px-4 text-center flex items-center justify-center gap-2 shadow-md">
