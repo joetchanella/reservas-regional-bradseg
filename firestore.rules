@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Units collection
+    match /units/{unitId} {
+      allow read: if true;
+      allow write: if isValidId(unitId)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() <= 100
+        && request.resource.data.adminPin is string
+        && request.resource.data.adminPin.size() <= 20;
+      allow delete: if isValidId(unitId);
+    }
+
+    // Rooms collection
+    match /rooms/{roomId} {
+      allow read: if true;
+      allow write: if isValidId(roomId)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() <= 100
+        && request.resource.data.capacity is number
+        && request.resource.data.status in ['active', 'maintenance', 'locked'];
+      allow delete: if isValidId(roomId);
+    }
+
+    // Bookings collection
+    match /bookings/{bookingId} {
+      allow read: if true;
+      allow create: if isValidId(bookingId)
+        && request.resource.data.roomId is string
+        && request.resource.data.roomId.size() <= 128
+        && request.resource.data.date is string
+        && request.resource.data.date.size() <= 20
+        && request.resource.data.startTime is string
+        && request.resource.data.startTime.size() <= 10
+        && request.resource.data.endTime is string
+        && request.resource.data.endTime.size() <= 10;
+      allow update: if isValidId(bookingId)
+        && request.resource.data.roomId is string
+        && request.resource.data.roomId.size() <= 128;
+      allow delete: if isValidId(bookingId);
+    }
+
+    // Departments collection
+    match /departments/{deptId} {
+      allow read: if true;
+      allow write: if isValidId(deptId)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() <= 100;
+      allow delete: if isValidId(deptId);
+    }
+  }
+}

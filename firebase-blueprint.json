@@ -1,0 +1,180 @@
+{
+  "entities": {
+    "Unit": {
+      "title": "Unit",
+      "description": "Branch / office location (e.g. Belém, Brasília, Goiânia, São Luís)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique slug identifier of the unit"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Display name of the unit (e.g. Belém, Brasília)"
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "City of the branch"
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Federative Unit (e.g. PA, DF, GO, MA)"
+        },
+        "adminPin": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "PIN code required to unlock admin rights for this unit"
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Office address"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether the unit is active"
+        }
+      },
+      "required": ["id", "name", "adminPin", "active"]
+    },
+    "Room": {
+      "title": "Room",
+      "description": "Meeting room or space associated with a unit",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the room"
+        },
+        "unitId": {
+          "type": "string",
+          "description": "Identifier of the unit this room belongs to"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Display name of the room"
+        },
+        "capacity": {
+          "type": "number",
+          "description": "Maximum seating capacity"
+        },
+        "resources": {
+          "type": "array",
+          "description": "List of available resources (e.g. TV, Projetor, Ar-condicionado)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "maintenance", "locked"],
+          "description": "Operational status of the room"
+        },
+        "maintenanceReason": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Reason for maintenance or lock if status is not active"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "General description or location notes"
+        }
+      },
+      "required": ["id", "name", "capacity", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Room reservation or administrative block",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the booking"
+        },
+        "unitId": {
+          "type": "string",
+          "description": "Identifier of the unit this booking belongs to"
+        },
+        "roomId": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Identifier of the booked room"
+        },
+        "userName": {
+          "type": "string",
+          "maxLength": 150,
+          "description": "Name of the reserving person or department responsible"
+        },
+        "userPhone": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "WhatsApp or mobile contact number"
+        },
+        "userDepartment": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Department or sector of the user"
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Date in YYYY-MM-DD format"
+        },
+        "startTime": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Start time in HH:mm format"
+        },
+        "endTime": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "End time in HH:mm format"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "isBlock": {
+          "type": "boolean",
+          "description": "Whether this is an administrative block"
+        },
+        "blockReason": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Reason for administrative block"
+        }
+      },
+      "required": ["roomId", "date", "startTime", "endTime"]
+    },
+    "Department": {
+      "title": "Department",
+      "description": "Organizational unit or corporate sector",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Name of the department"
+        }
+      },
+      "required": ["name"]
+    }
+  },
+  "firestore": {
+    "/rooms/{roomId}": {
+      "schema": "Room",
+      "description": "Collection of meeting rooms"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Collection of room reservations and administrative blocks"
+    },
+    "/departments/{departmentId}": {
+      "schema": "Department",
+      "description": "Collection of company departments"
+    }
+  }
+}

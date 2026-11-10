@@ -1,0 +1,6 @@
+{
+  "name": "Reservas Belém",
+  "description": "Sistema de Gestão e Agendamento de Salas - Unidade Belém com design neumórfico e sincronização em tempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
