@@ -435,11 +435,25 @@ export async function seedInitialDataIfNeeded(): Promise<void> {
   }
 }
 
+function assertAllowedToMutate() {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname.toLowerCase();
+    const isOfficial = host === 'joetchanella.github.io';
+    const isLocalOrDev = host === 'localhost' || host === '127.0.0.1' || host.includes('ais-dev-');
+    if (!isOfficial && !isLocalOrDev) {
+      throw new Error(
+        'Agendamentos desativados neste endereço antigo para evitar erros. Acesse o novo link oficial: https://joetchanella.github.io/reservas-regional-bradseg/'
+      );
+    }
+  }
+}
+
 // Create a booking with collision check
 export async function createBooking(
   bookingData: Omit<Booking, 'id' | 'createdAt'>,
   existingBookings: Booking[]
 ): Promise<string> {
+  assertAllowedToMutate();
   const targetUnitId = bookingData.unitId || 'belem';
 
   // Check for time overlap in existing bookings for same unit, same room and same date
@@ -479,6 +493,7 @@ export async function updateBooking(
   updatedData: Partial<Booking>,
   existingBookings: Booking[]
 ): Promise<void> {
+  assertAllowedToMutate();
   const current = existingBookings.find((b) => b.id === bookingId);
   if (!current) throw new Error('Agendamento não encontrado');
 
@@ -517,6 +532,7 @@ export async function updateBooking(
 
 // Delete booking
 export async function deleteBooking(bookingId: string): Promise<void> {
+  assertAllowedToMutate();
   try {
     await deleteDoc(doc(db, 'bookings', bookingId));
   } catch (err) {
