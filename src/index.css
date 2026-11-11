@@ -2,6 +2,7 @@
 
 @layer base {
   :root {
+    color-scheme: only light;
     --bg-main: #ECEEF4;
     --card-surface: #ECEEF4;
     --card-surface-subtle: #E8EBF2;
@@ -18,6 +19,7 @@
   }
 
   .dark {
+    color-scheme: only dark;
     --bg-main: #0B0E14;
     --card-surface: #121620;
     --card-surface-subtle: #171D2A;
@@ -33,7 +35,7 @@
     --border-subtle: rgba(255, 255, 255, 0.08);
   }
 
-  body {
+  html, body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

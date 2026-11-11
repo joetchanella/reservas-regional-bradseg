@@ -87,7 +87,7 @@ define(['./workbox-afac4cd2'], (function (workbox) { 'use strict';
     "revision": "64ea6a698394c5436976162396b7af3c"
   }, {
     "url": "index.html",
-    "revision": "972308f39429204d1b71342b17b64c38"
+    "revision": "a83bff7fb9cc7f7fce049134d614b7df"
   }, {
     "url": "icon.svg",
     "revision": "6c0ecf48db9ff216b0fea60e1bedfd6c"
@@ -101,16 +101,16 @@ define(['./workbox-afac4cd2'], (function (workbox) { 'use strict';
     "url": "assets/purify.es-BZxk_wWO.js",
     "revision": null
   }, {
-    "url": "assets/index.es-BpVE3BRP.js",
+    "url": "assets/index.es-CTkabri1.js",
     "revision": null
   }, {
-    "url": "assets/index-IUVk_f0y.js",
+    "url": "assets/index-DZeRcwRC.css",
     "revision": null
   }, {
-    "url": "assets/index-CrdpeI3R.css",
+    "url": "assets/index-C26IHY2g.js",
     "revision": null
   }, {
-    "url": "assets/html2canvas-C1X0MUAC.js",
+    "url": "assets/html2canvas-DBTK4dCz.js",
     "revision": null
   }, {
     "url": "assets/aistudio/image_be851d84.png",

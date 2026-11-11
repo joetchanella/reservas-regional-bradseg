@@ -35,7 +35,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const colorSchemeMeta = document.getElementById('color-scheme-meta');
     if (colorSchemeMeta) {
-      colorSchemeMeta.setAttribute('content', theme);
+      colorSchemeMeta.setAttribute('content', theme === 'dark' ? 'only dark' : 'only light');
     }
   }, [theme]);
 
